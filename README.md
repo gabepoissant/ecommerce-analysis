@@ -43,4 +43,11 @@ Analyzing this dataset required several data cleaning steps, and repair before a
 - **Cleaning** (data types, additional columns, trimming rows)
 - **Business Insights**
 
+Missing value analysis before and after processing:
+<img src="/img/missing_analysis.png" width="650" alt="Missing-Analysis" />
+
+
+
+
 ---
+
