@@ -40,7 +40,7 @@ def data_info(df):
     return 
 
 def repair_transactions(df):
-    ''' Repairs missing descriptions and prices by matching this info to other rows with the same stock code, then assigns missing customer IDs to `0` 
+    ''' Repairs missing descriptions and prices using cross-row information, then assigns missing customer IDs to `0` 
         Displays number of descriptions and prices repaired, and number of customers IDs assigned to `0`. '''
     repaired = df.copy()
     # Create dictionary of {Missing Description StockCode : Most common non-null description found for that code}    
