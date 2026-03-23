@@ -1,6 +1,6 @@
 # E-Commerce Sales Analysis
 
-**[Click here to view the Business Analysis Report](https://gabepoissant.github.io/ecommerce-analysis/)** 
+**[Click here to view the Business Analysis Report](https://gabepoissant.github.io/UCI-ecommerce-analysis/)** 
 
 ## Project Overview
 
