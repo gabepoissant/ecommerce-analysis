@@ -2,15 +2,18 @@ import pandas as pd
 from IPython.display import display
 
 def load_raw(path):
+    ''' Loads excel dataset '''
     loaded_dataset = pd.read_excel(path)
     return loaded_dataset
 
 def date_range(df):
+    ''' Returns the earliest and latest dates within the dataset '''
     start_date = df['InvoiceDate'].min().strftime('%B %d, %Y')
     end_date = df['InvoiceDate'].max().strftime('%B %d, %Y')
     return print('The dataset captures',start_date,'through',end_date,'.')
 
 def data_info(df):
+    ''' Displays dataset info such as shape, head, dtypes, uniques, summary, and missings '''
     print('=' * 80)
     print('Dataset Overview')
     print('=' * 80)
@@ -37,6 +40,8 @@ def data_info(df):
     return 
 
 def repair_transactions(df):
+    ''' Repairs missing descriptions and prices by matching this info to other rows with the same stock code, then assigns missing customer IDs to `0` 
+        Displays number of descriptions and prices repaired, and number of customers IDs assigned to `0`. '''
     repaired = df.copy()
     # Create dictionary of {Missing Description StockCode : Most common non-null description found for that code}    
     repaired_descriptions = {}
@@ -63,6 +68,7 @@ def repair_transactions(df):
     return repaired
 
 def unusual_stock_codes(df):
+    ''' Displays Net vs. Gross value of codes with stock codes that appear not to be sales, returns or cancellations '''
     df2 = df.copy()
     unusual_stock_codes = ['POST','D','DOT','M','C2','BANK CHARGES','TEST001','TEST002','PADS','m','S','B','ADJUST2','AMAZONFEE','ADJUST']
     # Define net and gross for unusual subset vs total
@@ -79,6 +85,9 @@ def unusual_stock_codes(df):
     return 
 
 def clean_transactions(df):
+    ''' Drops rows that have null description, price = 0 and unusual stock codes. 
+        Casts dtype of Customer ID to int
+        Rename 'Price' to 'UnitPrice' '''
     cleaned = df.copy()
     # Drop Rows with Null Description 
     before = len(cleaned)
@@ -101,6 +110,7 @@ def clean_transactions(df):
     return cleaned
 
 def add_features(df):
+    ''' Adds datetime columns, TotalPrice column and transaction type column '''
     columns_before = df.columns.tolist()
     # Date and time
     featured = df.copy()

@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def apply_style():
+    ''' Defines default figure style  '''
     plt.rcParams['figure.dpi'] = 150
     sns.set_theme(context='paper',font='Ebrima',rc={'axes.titleweight':'bold','axes.facecolor':'#EAEAF2', 'figure.facecolor':"#EAEAF2"})   
     
@@ -13,6 +14,7 @@ def apply_style():
     plt.rcParams['ytick.labelsize'] = 10
 
 def line_chart(df, x_col, y_col, xlabel, ylabel, title):
+    ''' Customizes and draws line chart and saves result '''
     sns.lineplot(df,x=x_col,y=y_col, marker='o')
     plt.ticklabel_format(style='plain', axis='y')
     plt.ylim(0, None)
@@ -23,7 +25,8 @@ def line_chart(df, x_col, y_col, xlabel, ylabel, title):
     plt.savefig(f"../figures/{title}.png", bbox_inches='tight')
     plt.show()
 
-def plot_bar(df, x_col, y_col, title, xlabel, ylabel, units='%'):   
+def plot_bar(df, x_col, y_col, title, xlabel, ylabel, units='%'):  
+    ''' Customizes and draws bar chart and saves result ''' 
     ax = sns.barplot(x=x_col, y=y_col, hue=x_col, data=df, palette='crest')
     for p in ax.patches:
         width = p.get_width()
@@ -41,6 +44,7 @@ def plot_bar(df, x_col, y_col, title, xlabel, ylabel, units='%'):
     plt.show()
 
 def plot_hbar(df, x_col, y_col, title, xlabel, ylabel, units='%'):  
+    ''' Customizes and draws horizontal bar chart and saves result ''' 
     ax = sns.barplot(x=x_col,y=y_col,hue=y_col,data=df,palette='crest',dodge=False)
     for p in ax.patches:
         width = p.get_width()

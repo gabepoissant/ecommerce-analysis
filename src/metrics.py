@@ -3,6 +3,8 @@ import datetime as dt
 
 # Revenue by Period (incomplete periods omitted)
 def revenue_by_period(df, period='month'):
+    ''' Returns table of complete periods in the dataset and its total revenue. Defines season. 
+        period: month, season '''
     output = df[df['Type'] != 'Cancellation'].copy()
     if period == 'month':    
         output['YearMonth'] = output['InvoiceDate'].dt.strftime('%Y-%m')
@@ -31,6 +33,8 @@ def revenue_by_period(df, period='month'):
 
 # Average Order Value (incomplete periods omitted)
 def aov(df, period='total'):
+    ''' Returns table of complete periods in the dataset and its total revenue. 
+        period: total, month '''
     output = df[df['Type'] != 'Cancellation'].copy()
     if period == 'total':
         output = output[['Invoice','TotalPrice']].groupby('Invoice').sum()
@@ -49,6 +53,7 @@ def aov(df, period='total'):
 
 # Repeat Revenue Share
 def repeat_customer_revenue(df):
+    ''' Defines repeat customers and returns their absolute revenue share and their percentage of total revenue '''
     df2 = df[(df['Type'] != 'Cancellation') & (df['CustomerID'] > 0)].copy()
     total = df2['TotalPrice'].sum()
     repeat = df2[['Invoice','CustomerID']].drop_duplicates(subset='Invoice')
@@ -60,6 +65,7 @@ def repeat_customer_revenue(df):
 
 # Customer concentration
 def customer_concentration(df):
+    ''' Returns a table of each customer and their absolute revenue share and their percentage of total revenue '''
     df2 = df[df['Type'] != 'Cancellation'].copy()
     # calculate % of transactions with unknown customer
     transaction_count = df2.shape[0]
@@ -77,12 +83,14 @@ def customer_concentration(df):
 
 # Percent Returns
 def return_percentage(df):
+    ''' Returns the percentage of sales lost to returns '''
     sales = df[df['Type'] == 'Sale']
     returns = df[df['Type'] == 'Return']
     return_pct = abs(returns['TotalPrice'].sum()) / sales['TotalPrice'].sum()
     return return_pct
 
 def product_concentration(df):
+    ''' Returns a table of each product, their description, revenue sold (absolute and relative), and quantity sold '''
     df2 = df[df['Type'] != 'Cancellation'].copy()
     code_revenue = df2[['StockCode','TotalPrice']].groupby('StockCode').sum().sort_values('TotalPrice', ascending=False)
     code_description = df2[['StockCode','Description']].drop_duplicates(subset='StockCode')
@@ -96,6 +104,7 @@ def product_concentration(df):
     return product_revenue
 
 def return_rates(df):
+    ''' Returns a table of each product and their return rates '''
     code_description = df[['StockCode','Description']].drop_duplicates(subset='StockCode')
 
     # Exclude cancellations
@@ -131,6 +140,7 @@ def return_rates(df):
 
 
 def market_growth(df):
+    ''' Returns a table of all countries with revenue in each month, and their growth from first and last month '''
     df2 = df[df['Type'] != 'Cancellation'].copy()
     # Create Year-Month column
     df2['YearMonth'] = df2['InvoiceDate'].dt.to_period('M')
@@ -154,6 +164,7 @@ def market_growth(df):
     return growth_summary
 
 def revenue_by_country(df):
+    ''' Returns a table that lists all countries and their total revenue (absolute and relative) '''
     output = df[df['Type'] != 'Cancellation'].copy()
     total_revenue = output['TotalPrice'].sum()
     output = output[['Country', 'TotalPrice']].groupby('Country').sum()
