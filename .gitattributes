@@ -1,0 +1,6 @@
+*.py linguist-detectable
+*.py linguist-documentation=false
+
+notebooks/* linguist-documentation
+figures/* linguist-documentation
+data/* linguist-documentation
