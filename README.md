@@ -44,7 +44,7 @@ The dataset details e-commerce sales and returns between **12/01/2009 and 12/09/
 |Customer ID  |Number that uniquely identifies customer       | 17958.0|
 |Country      |The country the customer ordered from          | United Kingdom|
 
-## Methodology & Tech Stack
+## Approach & Tech Stack
 
 Analyzing this dataset required robust data cleaning, missing value imputation, and feature engineering before performing Exploratory Data Analysis (EDA) and generating business insights.
 
